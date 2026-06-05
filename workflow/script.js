@@ -107,34 +107,38 @@ document.querySelectorAll("[data-image-refs]").forEach((node) => {
 document.querySelectorAll(".flow-scroll").forEach((slider) => {
   let isDown = false;
   let isDragging = false;
+  let startX;
+  let scrollLeft;
 
   slider.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return; // Only left click
     isDown = true;
     isDragging = false;
     slider.classList.add("is-dragging");
-  });
-
-  slider.addEventListener("mouseleave", () => {
-    isDown = false;
-    slider.classList.remove("is-dragging");
+    startX = e.pageX;
+    scrollLeft = slider.scrollLeft;
   });
 
   window.addEventListener("mouseup", () => {
     if (isDown) {
       isDown = false;
       slider.classList.remove("is-dragging");
+      setTimeout(() => { isDragging = false; }, 0);
     }
   });
 
-  slider.addEventListener("mousemove", (e) => {
+  window.addEventListener("mousemove", (e) => {
     if (!isDown) return;
-    e.preventDefault();
+    // e.preventDefault() on window can sometimes cause warnings, but it's fine here if passive: false
+    if (e.cancelable) e.preventDefault();
     
-    if (Math.abs(e.movementX) > 0) {
+    const x = e.pageX;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 5) {
       isDragging = true;
-      slider.scrollLeft -= (e.movementX * 1.5);
     }
-  });
+    slider.scrollLeft = scrollLeft - walk;
+  }, { passive: false });
 
   slider.addEventListener("dragstart", (e) => e.preventDefault());
 
