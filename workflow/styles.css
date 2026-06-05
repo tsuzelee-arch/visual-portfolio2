@@ -35,9 +35,8 @@ body {
 }
 
 .page-shell {
-  width: min(1440px, 100%);
-  margin: 0 auto;
-  padding: 48px clamp(18px, 4vw, 56px) 64px;
+  width: 100%;
+  padding: 48px clamp(24px, 5vw, 80px) 64px;
 }
 
 .page-header {
