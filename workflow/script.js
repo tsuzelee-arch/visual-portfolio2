@@ -123,9 +123,11 @@ document.querySelectorAll(".flow-scroll").forEach((slider) => {
     slider.classList.remove("is-dragging");
   });
 
-  slider.addEventListener("mouseup", () => {
-    isDown = false;
-    slider.classList.remove("is-dragging");
+  window.addEventListener("mouseup", () => {
+    if (isDown) {
+      isDown = false;
+      slider.classList.remove("is-dragging");
+    }
   });
 
   slider.addEventListener("mousemove", (e) => {
