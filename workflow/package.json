@@ -1,0 +1,15 @@
+{
+  "name": "personal-workflow",
+  "version": "1.0.0",
+  "description": "Personal workflow dashboard.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.cjs",
+    "build": "node --check script.js && node --check server.cjs",
+    "preview": "node server.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
