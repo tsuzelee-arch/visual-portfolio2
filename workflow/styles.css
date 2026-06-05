@@ -108,6 +108,7 @@ h1 {
 .flow-scroll.is-dragging {
   cursor: grabbing;
   user-select: none;
+  scroll-behavior: auto !important;
 }
 
 .flow-scroll.is-dragging * {

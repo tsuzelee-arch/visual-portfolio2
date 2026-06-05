@@ -107,15 +107,11 @@ document.querySelectorAll("[data-image-refs]").forEach((node) => {
 document.querySelectorAll(".flow-scroll").forEach((slider) => {
   let isDown = false;
   let isDragging = false;
-  let startX;
-  let scrollLeft;
 
   slider.addEventListener("mousedown", (e) => {
     isDown = true;
     isDragging = false;
     slider.classList.add("is-dragging");
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
   });
 
   slider.addEventListener("mouseleave", () => {
@@ -133,10 +129,11 @@ document.querySelectorAll(".flow-scroll").forEach((slider) => {
   slider.addEventListener("mousemove", (e) => {
     if (!isDown) return;
     e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll-fast multiplier
-    if (Math.abs(walk) > 5) isDragging = true;
-    slider.scrollLeft = scrollLeft - walk;
+    
+    if (Math.abs(e.movementX) > 0) {
+      isDragging = true;
+      slider.scrollLeft -= (e.movementX * 1.5);
+    }
   });
 
   slider.addEventListener("dragstart", (e) => e.preventDefault());
