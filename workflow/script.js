@@ -102,3 +102,47 @@ document.addEventListener("keydown", (event) => {
 document.querySelectorAll("[data-image-refs]").forEach((node) => {
   mountNodeImages(node);
 });
+
+// Drag to scroll functionality
+document.querySelectorAll(".flow-scroll").forEach((slider) => {
+  let isDown = false;
+  let isDragging = false;
+  let startX;
+  let scrollLeft;
+
+  slider.addEventListener("mousedown", (e) => {
+    isDown = true;
+    isDragging = false;
+    slider.classList.add("is-dragging");
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  });
+
+  slider.addEventListener("mouseleave", () => {
+    isDown = false;
+    slider.classList.remove("is-dragging");
+  });
+
+  slider.addEventListener("mouseup", () => {
+    isDown = false;
+    slider.classList.remove("is-dragging");
+  });
+
+  slider.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll-fast multiplier
+    if (Math.abs(walk) > 5) isDragging = true;
+    slider.scrollLeft = scrollLeft - walk;
+  });
+
+  slider.addEventListener("dragstart", (e) => e.preventDefault());
+
+  slider.addEventListener("click", (e) => {
+    if (isDragging) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }, true);
+});

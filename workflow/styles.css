@@ -103,6 +103,12 @@ h1 {
   overflow-x: auto;
   padding: 8px 2px 18px;
   scrollbar-color: var(--charcoal) transparent;
+  cursor: grab;
+}
+
+.flow-scroll.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .flow-scroll::-webkit-scrollbar {
