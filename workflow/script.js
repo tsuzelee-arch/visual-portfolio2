@@ -114,7 +114,6 @@ document.querySelectorAll(".flow-scroll").forEach((slider) => {
     if (e.button !== 0) return; // Only left click
     isDown = true;
     isDragging = false;
-    slider.classList.add("is-dragging");
     startX = e.pageX;
     scrollLeft = slider.scrollLeft;
   });
@@ -136,6 +135,7 @@ document.querySelectorAll(".flow-scroll").forEach((slider) => {
     const walk = (x - startX) * 1.5;
     if (Math.abs(walk) > 5) {
       isDragging = true;
+      slider.classList.add("is-dragging");
     }
     slider.scrollLeft = scrollLeft - walk;
   }, { passive: false });
