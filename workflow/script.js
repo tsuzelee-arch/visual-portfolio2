@@ -133,7 +133,7 @@ document.querySelectorAll(".flow-scroll").forEach((slider) => {
     
     const x = e.pageX;
     const walk = (x - startX) * 1.5;
-    if (Math.abs(walk) > 5) {
+    if (Math.abs(walk) > 15) {
       isDragging = true;
       slider.classList.add("is-dragging");
     }
